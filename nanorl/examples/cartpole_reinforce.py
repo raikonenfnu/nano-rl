@@ -10,6 +10,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torch.distributions import Categorical
 from nanorl.trainers.reinforce import reinforceTrainer
+from nanorl.trainers.ppo import PPOTrainer
 
 
 env = gym.make('CartPole-v0')
@@ -40,6 +41,6 @@ class Policy(nn.Module):
 if __name__ == "__main__":
     policy = Policy().to(device)
     optimizer = optim.Adam(policy.parameters(), lr=1e-2)
-    trainer = reinforceTrainer()
+    trainer = PPOTrainer(print_every=10,device=device)
     trainer.train(env, policy, optimizer)
 
